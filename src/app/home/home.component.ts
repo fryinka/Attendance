@@ -30,6 +30,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.sign = false;
+    this.attendanceService.getByUserAndDay('',new Date).subscribe(response=>{
+      if(response==null){
+        this.sign = false;
+        this.msg = response.responseMessage;
+      } else{
+        this.dateToday=response.uploadedAt;
+        this.sign=true;
+        this.msg="You signed in at"
+      }
+    })
     // this.attendanceService.GettAttendanceTime(this.user.appId).subscribe((response: any) => {
     //   if (response.responseCode == 1) {
     //     this.dateToday = response.dataSet.timeIn;
